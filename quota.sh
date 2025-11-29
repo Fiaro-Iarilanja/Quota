@@ -51,9 +51,9 @@ check_and_report(){
 }
 
 if [ -z $(mount | grep -o "usrquota") ]; then
-	echo "Make sure there is no process running on your mount point or else reboot your computer"
+	echo "Make sure there is no process running on your mount point or else reboot your computer to apply changes"
 	enable_quota
-else 
+else
 	set_quota_for_user
 	check_and_report
 fi
