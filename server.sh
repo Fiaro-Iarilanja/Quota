@@ -1,4 +1,14 @@
 #!/bin/bash
+path_to_server_conf="/etc/apache2/sites-availables"
+create_server(){
+    cp /var/cache/apt/archives/*.deb /var/www/html/
+    if [ -z $(ls $path_to_server_conf |grep -o deb_server.conf) ]; then
+        touch $path_to_server_conf/deb_server.conf
+        echo -e "<VirtualHost *:80>\nScriptAlias /cgi-bin \"/usr/lib/cgi-bin/\"\nServerName www.deb_package.mg\n</VirtualHost>" > $path_to_server_conf/deb_server.conf
+        a2ensite $path_to_server_conf/deb_server.conf
+        systemctl reload apache2
+    fi
+}
 
 echo "Content-Type: text/html"
 echo ""
