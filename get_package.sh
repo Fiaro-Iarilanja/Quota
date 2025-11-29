@@ -10,7 +10,7 @@ read data
 data=$(echo $data | sed 's/%2B/+/g' | awk -F'=' '{print $2}')
 for i in $(ls /var/cache/apt/archives/ | grep $data ); do
     echo "<p>"
-    echo "<a href=\"/var/cache/apt/archives/$i\" download>- $i</a>"
+    echo "<a href=\"/$i\" download>- $i</a>"
     echo "</p>"
 done
 echo "</body>"
