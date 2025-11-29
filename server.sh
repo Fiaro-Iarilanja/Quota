@@ -2,8 +2,8 @@
 
 echo "Content-Type: text/html"
 echo ""
+
 path_to_deb="/var/cache/apt/archives/"
-ls $path_to_deb | grep ".deb" > $list
 echo "<html>"
 echo "<head><title>Deb Package</title></head>" 
 echo "<body>" 
@@ -13,12 +13,12 @@ echo "<input type=\"text\" size=\"75\" name=\"package_name\" placeholder=\"Searc
 echo "<input type=\"submit\" value=\"Search\">" 
 echo "<datalist id="packages">"
     for i in $(ls $path_to_deb | grep ".deb" ); do
-    echo "<option value=\"$i\">" 
+        echo "<option value=\"$i\">" 
     done
 echo "</datalist>"
 echo "</form>"
 for i in $(ls $path_to_deb | grep ".deb" ); do
-    echo "<p>- $i</p>"
+   echo "<p><a href=\"/$i\" download>- $i</a></p>"
 done
 echo "</body>" 
 echo "</html>"
