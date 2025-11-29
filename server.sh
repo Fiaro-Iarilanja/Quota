@@ -2,9 +2,10 @@
 path_to_server_conf="/etc/apache2/sites-availables"
 create_server(){
     cp /var/cache/apt/archives/*.deb /var/www/html/
-    if [ -z $(ls $path_to_server_conf |grep -o deb_server.conf) ]; then
+    if [ -z $(ls $path_to_server_conf |grep -o server.conf) ]; then
         touch $path_to_server_conf/deb_server.conf
-        echo -e "<VirtualHost *:80>\nScriptAlias /cgi-bin \"/usr/lib/cgi-bin/\"\nServerName www.deb_package.mg\n</VirtualHost>" > $path_to_server_conf/deb_server.conf
+        echo -e "<VirtualHost *:80>\nScriptAlias /cgi-bin \"/usr/lib/cgi-bin/\"\nServerName www.server.mg\n</VirtualHost>" > $path_to_server_conf/server.conf
+        echo -e "<VirtualHost *:80>\nScriptAlias /cgi-bin \"/usr/lib/cgi-bin/\"\nServerName www.get_package.mg\n</VirtualHost>" > $path_to_server_conf/get_package.conf
         a2ensite $path_to_server_conf/deb_server.conf
         systemctl reload apache2
     fi
@@ -28,7 +29,7 @@ echo "<datalist id="packages">"
 echo "</datalist>"
 echo "</form>"
 for i in $(ls $path_to_deb | grep ".deb" ); do
-   echo "<p><a href=\"/$i\" download>- $i</a></p>"
+   echo "<input type=\"submit\" value=\"$i\">" 
 done
 echo "</body>" 
 echo "</html>"
